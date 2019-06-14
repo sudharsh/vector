@@ -83,9 +83,6 @@ impl<S: Subscriber> Subscriber for LimitSubscriber<S> {
                             return;
                         }
                     } else {
-                        // TODO: delete event from map?
-                        // Produce rollup event here?
-
                         drop(events);
 
                         let mut events = self.events.write().unwrap();
