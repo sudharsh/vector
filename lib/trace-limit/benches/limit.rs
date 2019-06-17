@@ -1,4 +1,4 @@
-// MUST COMMENT THIS BECAUSE BENCHMARKS ARE ONLY AVAILABLE ON NIGHTLY.
+// // MUST COMMENT THIS BECAUSE BENCHMARKS ARE ONLY AVAILABLE ON NIGHTLY.
 
 // #![feature(test)]
 
@@ -60,7 +60,7 @@
 // #[bench]
 // fn limit_record_50(b: &mut Bencher) {
 //     let sub = LimitSubscriber::new(VisitingSubscriber(Mutex::new(String::from(""))));
-//     let n = test::black_box(1000);
+//     let n = test::black_box(100);
 //     tokio_trace::subscriber::with_default(sub, || {
 //         b.iter(|| {
 //             for _ in 0..n {
@@ -80,7 +80,7 @@
 // #[bench]
 // fn limit_record_100(b: &mut Bencher) {
 //     let sub = LimitSubscriber::new(VisitingSubscriber(Mutex::new(String::from(""))));
-//     let n = test::black_box(1000);
+//     let n = test::black_box(100);
 //     tokio_trace::subscriber::with_default(sub, || {
 //         b.iter(|| {
 //             for _ in 0..n {
@@ -267,6 +267,8 @@
 //     fn event(&self, event: &Event) {
 //         let mut visitor = Visitor(self.0.lock().unwrap());
 //         event.record(&mut visitor);
+
+//         println!("{}", visitor.0);
 //     }
 
 //     fn record_follows_from(&self, span: &Id, follows: &Id) {
