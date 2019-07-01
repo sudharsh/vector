@@ -71,6 +71,10 @@ The `remove_fields` transforms accepts [`log`][docs.log_event] and [`metric`][do
 
 
 
+
+
+
+
 ## Troubleshooting
 
 The best place to start with troubleshooting is to check the

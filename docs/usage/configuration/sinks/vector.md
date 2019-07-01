@@ -128,6 +128,9 @@ The `vector` sink streams [`log`][docs.log_event] events to another downstream V
 
 
 
+
+
+
 ## How It Works
 
 ### Buffers

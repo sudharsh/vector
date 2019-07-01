@@ -93,6 +93,10 @@ The `sampler` transforms accepts [`log`][docs.log_event] events and allows you t
 
 
 
+
+
+
+
 ## Troubleshooting
 
 The best place to start with troubleshooting is to check the

@@ -125,6 +125,8 @@ The `tokenizer` transforms accepts [`log`][docs.log_event] events and allows you
 
 
 
+{% tabs %}
+{% tab title="Example" %}
 Given the following log line:
 
 {% code-tabs %}
@@ -170,6 +172,10 @@ A few things to note about the output:
 2. The `ident` field was dropped since it contained a `"-"` value.
 3. All values are strings, we have plans to add type coercion.
 4. [Special wrapper characters](#special-characters) were dropped, such as wrapping `[...]` and `"..."` characters.
+
+{% endtab %}
+{% endtabs %}
+
 
 
 
