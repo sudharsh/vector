@@ -75,15 +75,12 @@ impl<S: Subscriber> Subscriber for LimitSubscriber<S> {
                     let local_count = count.fetch_add(1, Ordering::Relaxed);
 
                     if ts - start.load(Ordering::Relaxed) < limit {
-                        if local_count + 1 > 1 {
-                            // count.store(0, Ordering::Relaxed);
-                            // drop(events);
+                        // If we have seen this event more than once,
+                        // then lets early return to avoid passing this
+                        // event to the inner subscriber.
+                        if local_count >= 1 {
                             return;
                         }
-                    // } else {
-                    //     // Ignore this event
-                    //     // return;
-                    // }
                     } else {
                         drop(events);
 
