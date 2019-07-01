@@ -78,10 +78,6 @@ The `field_filter` transforms accepts [`log`][docs.log_event] and [`metric`][doc
 
 
 
-
-
-
-
 ## How It Works
 
 ### Complex Comparisons

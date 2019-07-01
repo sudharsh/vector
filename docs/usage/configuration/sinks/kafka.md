@@ -154,9 +154,6 @@ The `kafka` sink streams [`log`][docs.log_event] events to [Apache Kafka][url.ka
 
 
 
-
-
-
 ## How It Works
 
 ### Buffers

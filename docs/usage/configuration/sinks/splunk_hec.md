@@ -230,9 +230,6 @@ The `splunk_hec` sink batch and flushes [`log`][docs.log_event] events to a [Spl
 
 
 
-
-
-
 ## How It Works
 
 ### Batching
