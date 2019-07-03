@@ -99,6 +99,8 @@ impl<S: Subscriber> Subscriber for LimitSubscriber<S> {
                             "unknown event"
                         };
 
+                        // We need to replicate the way that fmt logs events
+                        // because we currently can not create new fresh events.
                         println!(
                             "{} {} {:?} {:?} logs were rate limited.",
                             FmtLevel(meta.level()),
