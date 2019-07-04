@@ -96,7 +96,7 @@ fn main() {
 
         if let Some(threads) = opts.threads {
             if threads < 1 || threads > 4 {
-                error!("threads must be between 1 and 4 (inclusive)");
+                error!("Parameter `threads` must be between 1 and 4 (inclusive).");
                 std::process::exit(exitcode::CONFIG);
             }
         }
@@ -152,14 +152,14 @@ fn main() {
         );
 
         let (exit_after, require_healthy) = if opts.dry_run {
-            info!("Dry run enabled, exiting after config validation");
+            info!("Dry run enabled, exiting after config validation.");
             if opts.healthchecks_only {
-                info!("Ignoring --healthchecks-only due to more strong option --dry-run");
+                info!("Ignoring `--healthchecks-only` due to more strong option `--dry-run`.");
             }
 
             (Some(Stage::ConfigValidated), opts.require_healthy)
         } else if opts.healthchecks_only {
-            info!("Exit after finishing healthchecks configured");
+            info!("Healthchecks only enabled, exiting after healtchecks have run.");
             (Some(Stage::HealthChecksPassed), true)
         } else {
             (None, opts.require_healthy)
@@ -222,7 +222,7 @@ fn main() {
 
             let success = topology.reload_config_on_hot(config, &mut rt, opts.require_healthy);
             if !success {
-                error!("Reload aborted");
+                error!("Reload aborted.");
             }
         };
 
@@ -272,13 +272,13 @@ fn open_config(path: &Path) -> Option<File> {
         Err(e) => {
             if let std::io::ErrorKind::NotFound = e.kind() {
                 error!(
-                    message = "Config file not found in path",
+                    message = "Config file not found in path.",
                     path = field::display(path.display()),
                 );
                 None
             } else {
                 error!(
-                    message = "Error opening config file",
+                    message = "Error opening config file.",
                     error = field::display(e),
                 );
                 None
