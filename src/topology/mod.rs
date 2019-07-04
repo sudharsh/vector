@@ -7,7 +7,6 @@ pub use self::config::Config;
 use crate::topology::builder::Pieces;
 
 use crate::buffers;
-use either::Either::{self, Left, Right};
 use futures::{
     future,
     sync::{mpsc, oneshot},
@@ -42,8 +41,8 @@ pub fn start(
     config: Config,
     rt: &mut tokio::runtime::Runtime,
     require_healthy: bool,
-) -> Option<(RunningTopology, mpsc::UnboundedReceiver<()>)> {
-    start_or_validate(config, rt, None, require_healthy).right()
+) -> Result<(RunningTopology, mpsc::UnboundedReceiver<()>), ()> {
+    start_or_validate(config, rt, None, require_healthy).map_err(|_| ())
 }
 
 pub fn start_or_validate(
@@ -51,7 +50,7 @@ pub fn start_or_validate(
     rt: &mut tokio::runtime::Runtime,
     exit_after: Option<Stage>,
     require_healthy: bool,
-) -> Either<bool, (RunningTopology, mpsc::UnboundedReceiver<()>)> {
+) -> Result<(RunningTopology, mpsc::UnboundedReceiver<()>), bool> {
     let (abort_tx, abort_rx) = mpsc::unbounded();
 
     let mut running_topology = RunningTopology {
@@ -68,9 +67,9 @@ pub fn start_or_validate(
     let success =
         running_topology.reload_config_and_respawn(config, rt, exit_after, require_healthy, true);
     if success && !exit_after_success {
-        Right((running_topology, abort_rx))
+        Ok((running_topology, abort_rx))
     } else {
-        Left(success && exit_after_success)
+        Err(success && exit_after_success)
     }
 }
 

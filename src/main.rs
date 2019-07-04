@@ -166,8 +166,8 @@ fn main() {
         };
 
         let result = topology::start_or_validate(config, &mut rt, exit_after, require_healthy);
-        result.as_ref().left().map(|success| {
-            let exit_code = if *success {
+        let (mut topology, mut graceful_crash) = result.unwrap_or_else(|success: bool| {
+            let exit_code = if success {
                 exitcode::OK
             } else {
                 exitcode::CONFIG
@@ -175,8 +175,6 @@ fn main() {
 
             std::process::exit(exit_code);
         });
-
-        let (mut topology, mut graceful_crash) = result.right().unwrap();
 
         let sigint = Signal::new(SIGINT).flatten_stream();
         let sigterm = Signal::new(SIGTERM).flatten_stream();
